@@ -4,8 +4,6 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project follows [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
-
 ## [1.1.0] - 2026-11-04
 
 ### Added
@@ -22,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - Improved responsive behavior and mobile navigation.
 - Updated the project brand subtitle from an academic label to a product-oriented workspace label.
 
-## [1.0.0] - 2026-11-04
+## [1.0.0] - 2026-10-28
 
 ### Added
 
