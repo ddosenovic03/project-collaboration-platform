@@ -1,14 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "../common/Button";
+import { Icon } from "../common/Icon";
 import { useAuth } from "../../context/AuthContext";
-
-const navigacija = [
-    { to: "/dashboard", label: "Dashboard" },
-    { to: "/projekti", label: "Projekti" },
-    { to: "/pozivi", label: "Pozivi" },
-    { to: "/moji-poslovi", label: "Moji poslovi" },
-    { to: "/kreirani-poslovi", label: "Kreirani poslovi" }
-];
+import { uiConfig } from "../../config/uiConfig";
 
 export const Sidebar = () => {
 
@@ -22,24 +16,26 @@ export const Sidebar = () => {
     return (
         <aside className="sidebar">
             <div className="sidebar-brand">
-                <span className="brand-mark">K</span>
+                <span className="brand-mark">{uiConfig.brand.shortName}</span>
                 <div>
-                    <strong>Kolaboracija</strong>
-                    <small>Projektni rad</small>
+                    <strong>{uiConfig.brand.name}</strong>
+                    <small>{uiConfig.brand.subtitle}</small>
                 </div>
             </div>
 
-            <nav className="sidebar-nav">
-                {navigacija.map((item) => (
+            <nav aria-label="Glavna navigacija" className="sidebar-nav">
+                {uiConfig.navigation.map((item) => (
                     <NavLink key={item.to} to={item.to} className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
-                        {item.label}    
+                        <Icon name={item.icon} />
+                        <span>{item.label}</span>
                     </NavLink>
                 ))}
             </nav>
 
             <div className="sidebar-footer">
                 <Button variant="ghost" fullWidth onClick={handleOdjava}>
-                    Odjava
+                    <Icon name="logout" size={18} />
+                    <span>Odjava</span>
                 </Button>
             </div>
         </aside>

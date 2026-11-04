@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { ThemeToggle } from "../common/ThemeToggle";
 
 const odrediNaslovStranice = (pathname: string) => {
     if (pathname.startsWith("/dashboard")) return "Dashboard";
@@ -23,15 +24,18 @@ export const Header = () => {
                 <p>Veb aplikacija za kolaboraciju na projektima</p>
             </div>
 
-            {korisnik && (
-                <div className="user-chip">
-                    <span>{korisnik.ime.charAt(0)}</span>
-                    <div>
-                        <strong>{korisnik.ime} {korisnik.prezime}</strong>
-                        <small>{korisnik.korisnicko_ime}</small>
+            <div className="header-actions">
+                <ThemeToggle />
+                {korisnik && (
+                    <div className="user-chip">
+                        <span>{korisnik.ime.charAt(0)}</span>
+                        <div>
+                            <strong>{korisnik.ime} {korisnik.prezime}</strong>
+                            <small>{korisnik.korisnicko_ime}</small>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </header>
     );
 };
