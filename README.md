@@ -197,3 +197,12 @@ Test123!
 This project was developed individually as a bachelor's thesis project.
 
 The main goal was to design and implement a complete full-stack application, including a relational database, REST API, authentication, validation, frontend application, and file handling.
+
+## Versioning
+
+The application follows [Semantic Versioning](https://semver.org/). The current version is stored in [`VERSION`](VERSION), while notable changes are documented in [`CHANGELOG.md`](CHANGELOG.md).
+
+- `1.0.0` represents the original bachelor's thesis release.
+- `1.1.0` introduces the first post-thesis design system and visual modernization.
+
+The complete release procedure is described in [`docs/VERSIONING.md`](docs/VERSIONING.md).
