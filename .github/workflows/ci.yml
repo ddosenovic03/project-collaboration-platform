@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+  backend:
+    name: Backend build
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build backend
+        run: npm run build
+
+  version:
+    name: Version consistency
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Check application versions
+        shell: bash
+        run: |
+          expected="$(tr -d '\r\n' < VERSION)"
+          frontend="$(node -p "require('./frontend/package.json').version")"
+          frontend_lock="$(node -p "require('./frontend/package-lock.json').version")"
+          backend="$(node -p "require('./backend/package.json').version")"
+          backend_lock="$(node -p "require('./backend/package-lock.json').version")"
+
+          echo "Expected version: $expected"
+          echo "Frontend: $frontend"
+          echo "Frontend lock: $frontend_lock"
+          echo "Backend: $backend"
+          echo "Backend lock: $backend_lock"
+
+          test "$expected" = "$frontend"
+          test "$expected" = "$frontend_lock"
+          test "$expected" = "$backend"
+          test "$expected" = "$backend_lock"
